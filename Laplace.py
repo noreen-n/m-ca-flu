@@ -13,7 +13,7 @@ from scipy.sparse import csc_matrix
 from scipy.sparse.linalg import spsolve
 
 
-dom = np.loadtxt('1-dom.txt', dtype = int)
+dom = np.loadtxt('1-dom.txt', dtype = int) #essayer d'enlever les dtype
 num = np.loadtxt('1-num.txt', dtype = int)
 cl = np.loadtxt('1-cl.txt', dtype = float)
 
@@ -24,8 +24,8 @@ def Laplace(dom, num, cl):
     data = np.array([])
     vecteur = np.array([])
     
-    for i in range (1, dom.shape[0]-2):
-        for k in range (1, dom.shape[1]-2):
+    for i in range (1, dom.shape[0]-1):
+        for k in range (1, dom.shape[1]-1):
             
             j,a,b = getCoeff(num[i-1, k], num[i+1, k], num[i, k-1], num[i, k+1], num[i, k], dom[i, k], cl[i, k])
             
@@ -59,9 +59,7 @@ def Laplace(dom, num, cl):
     print("vecteur")
     print(vecteur)
     
-    vecteur = vecteur
-    
-    solution = spsolve(A, vecteur, permc_spec=None, use_umfpack=True)
+    solution = spsolve(A, vecteur, permc_spec=None, use_umfpack=True) #Voir remettre sous forme de matrice 
     
     print("solution")
     print(solution)
