@@ -3,13 +3,10 @@
 """
 Created on Thu Mar 28 16:34:14 2024
 
-@author: mariebaptiste
+@author: noreenchau
 """
-
-
 import numpy as np
 
-from Laplace import Laplace
 from deriv import deriv
 
 dom = np.loadtxt('1-dom.txt', dtype = int)
@@ -34,9 +31,5 @@ def velocity(phi, dom, h):
     print(v)
            
     return u,v
-            
-
-phi = Laplace(dom, num, cl)
-velocity(phi, dom, h)
 
     

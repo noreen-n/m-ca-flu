@@ -3,7 +3,7 @@
 """
 Created on Thu Mar 28 09:55:04 2024
 
-@author: mariebaptiste
+@author: noreenchau
 """
 
 def deriv(f_left, f_c, f_right, type_left, type_c, type_right, h):

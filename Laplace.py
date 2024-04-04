@@ -3,21 +3,14 @@
 """
 Created on Sat Mar 23 13:08:26 2024
 
-@author: mariebaptiste
+@author: noreenchau
 """
-
-
  
 from getCoeff import getCoeff 
 import numpy as np
 
 from scipy.sparse import csc_matrix
 from scipy.sparse.linalg import spsolve
-
-
-dom = np.loadtxt('1-dom.txt', dtype = int)
-num = np.loadtxt('1-num.txt', dtype = int)
-cl = np.loadtxt('1-cl.txt', dtype = float)
 
 def Laplace(dom, num, cl):
     colonne = np.array([])
@@ -60,9 +53,3 @@ def Laplace(dom, num, cl):
     print(matriceSolution)
             
     return matriceSolution
-
-            
-
-
-
-Laplace(dom, num ,cl)
