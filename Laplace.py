@@ -16,7 +16,14 @@ def Laplace(dom, num, cl):
     colonne = np.array([])
     ligne = np.array([])
     data = np.array([])
-    vecteur = np.array([])
+
+    dim = np.max(num)
+    vecteur = np.zeros(dim)
+    
+    print("vecteur")
+    print(vecteur)
+    
+    
    
     for i in range (1, dom.shape[0]-1):
         for k in range (1, dom.shape[1]-1):
@@ -25,7 +32,8 @@ def Laplace(dom, num, cl):
 
             colonne = np.concatenate((colonne, j), axis=None)
             data = np.concatenate((data, a), axis=None)
-            vecteur = np.concatenate((vecteur, b), axis=None)
+            
+            vecteur[num[i, k]-1] = b
             if dom[i, k] == 1:
                 for l in range (5):   #mettre 5*la valeur de la ligne
                     ligne = np.concatenate((ligne, num[i, k]-1), axis=None)
@@ -41,6 +49,9 @@ def Laplace(dom, num, cl):
     A = csc_matrix((data, (ligne, colonne)), shape=(taille, taille))
 
     solution = spsolve(A, vecteur, permc_spec=None, use_umfpack=True)
+
+    print("solution")    
+    print(solution)
     
     matriceSolution = np.zeros((num.shape[0],num.shape[1]))
     

@@ -18,4 +18,3 @@ def pressure(rho, g, u, v, C):
     print("p")
     print(p)
     return p
-
