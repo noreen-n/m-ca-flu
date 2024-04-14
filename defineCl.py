@@ -23,6 +23,51 @@ def borders(dom) :
     return x, y
 
 x, y = borders(dom)
+#parcours en sens horloger
+def borders(dom):
+    
+    x = []
+    y = []
+    x_start = 0
+    y_start = 0
+
+    for i in range (1, dom.shape[0]-1):
+        for k in range (1, dom.shape[1]-1):
+            if(dom[i][k] == 2):
+                
+                x_start = i
+                y_start = k
+                break 
+        else:
+            continue
+        break
+
+    
+    for l in range (y_start, dom.shape[1]-1):
+        if(dom[x_start][l]==2):
+            x.append(x_start)
+            y.append(l)
+            y_max = l
+            
+      
+    for c in range(x_start+1, dom.shape[0]-1):
+        if(dom[c][y_max]==2):
+            x.append(c)
+            y.append(l)
+    
+    for d in range(dom.shape[1]-3, 0, -1 ):
+        if(dom[c][d]==2):
+            x.append(dom.shape[0]-1-x_start)
+            y.append(d)
+
+    
+    for j in range (dom.shape[0]-3, x_start,-1):
+        if(dom[j][y_start] ==2):
+            x.append(j)
+            y.append(y_start)
+ 
+
+    return x, y
 
 def createCl(dom, x, y, Q):
     
