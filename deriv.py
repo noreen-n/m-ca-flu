@@ -15,5 +15,7 @@ def deriv(f_left, f_c, f_right, type_left, type_c, type_right, h):
             return (f_c - f_left)/h             #deriveArriere
         elif type_right != 0 :
             return (f_right - f_c)/h            #deriveAvant
+    else :
+        return 0
     
     

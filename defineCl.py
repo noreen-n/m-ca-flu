@@ -24,7 +24,7 @@ def borders(dom) :
 
 x, y = borders(dom)
 #parcours en sens horloger
-def borders(dom):
+def borderss(dom):
     
     x = []
     y = []
@@ -66,7 +66,6 @@ def borders(dom):
             x.append(j)
             y.append(y_start)
  
-
     return x, y
 
 def createCl(dom, x, y, Q):
@@ -75,8 +74,8 @@ def createCl(dom, x, y, Q):
     
     for i in range(len(x)):
         for k in range(len(y)):
-            if(dom[x[i]][y[k]] == 2):
-                cl[x[i]][y[k]] = Q/2
+            if(dom[int(x[i])][int(y[k])] == 2):
+                cl[int(x[i])][int(y[k])] = Q/2
             
     for i in range (2, dom.shape[0]-2):
         cl[i][1]= Q
@@ -98,10 +97,11 @@ def createCl(dom, x, y, Q):
     print(cl.shape)
     print(len(clSide))
     cl[:][1] = clSide[:]
-    cl[dom.shape[0]-2][:] = clSide[:]    
+    cl[dom.shape[0]-2][:] = clSide[:] 
+    
         
     return cl
             
 
-cl = createCl(dom, x, y, 35)
+#cl = createCl(dom, x, y, 35)
     

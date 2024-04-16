@@ -14,8 +14,8 @@ def force(p, x, y):
         fx = fx - ((p[i]+p[i+1])/2)*(y[i]-y[i+1])
         fy = fy + ((p[i]+p[i+1])/2)*(x[i]-x[i+1])
     
-    print("fx")
-    print(fx)
-    print("fy")
-    print(fy)
+    #print("fx")
+    #print(fx)
+    #print("fy")
+    #print(fy)
     return fx,fy    

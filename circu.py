@@ -16,8 +16,8 @@ def circu(u, v, x, y):
         elif (y[i] == y[i+1]):
             c = c + (x[i+1]-x[i])*((u[i]+u[i+1])/2)
             
-    print("c")
-    print(c)
+    #print("c")
+    #print(c)
     return c
 
 
