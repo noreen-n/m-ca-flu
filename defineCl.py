@@ -31,8 +31,8 @@ def borderss(dom):
     x_start = 0
     y_start = 0
 
-    for i in range (1, dom.shape[0]-1):
-        for k in range (1, dom.shape[1]-1):
+    for i in range (2, dom.shape[0]-3):
+        for k in range (2, dom.shape[1]-3):
             if(dom[i][k] == 2):
                 
                 x_start = i
@@ -43,14 +43,14 @@ def borderss(dom):
         break
 
     
-    for l in range (y_start, dom.shape[1]-1):
+    for l in range (y_start, dom.shape[1]-3):
         if(dom[x_start][l]==2):
             x.append(x_start)
             y.append(l)
             y_max = l
             
       
-    for c in range(x_start+1, dom.shape[0]-1):
+    for c in range(x_start+1, dom.shape[0]-3):
         if(dom[c][y_max]==2):
             x.append(c)
             y.append(l)
