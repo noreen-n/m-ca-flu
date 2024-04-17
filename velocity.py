@@ -24,9 +24,9 @@ def velocity(phi, dom, h):
     
     for i in range (1, phi.shape[0]-1):
         for j in range (1, phi.shape[1]-1) :
-           u[i][j] = deriv(phi[i][j-1], phi[i][j], phi[i][j+1], dom[i][j-1], dom[i][j], dom[i][j+1], h)
-           vBuffer = deriv(phi[i-1][j], phi[i][j], phi[i+1][j], dom[i-1][j], dom[i][j], dom[i+1][j], h)
-           v[i][j] = - vBuffer
+            if(dom[i, j] != 0):
+                u[i][j] = deriv(phi[i][j-1], phi[i][j], phi[i][j+1], dom[i][j-1], dom[i][j], dom[i][j+1], h)
+                v[i][j] = - deriv(phi[i-1][j], phi[i][j], phi[i+1][j], dom[i-1][j], dom[i][j], dom[i+1][j], h)
            
     print("u")
     print(u)
