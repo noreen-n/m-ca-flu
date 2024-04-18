@@ -65,7 +65,8 @@ def borderss(dom):
         if(dom[j][y_start] ==2):
             x.append(j)
             y.append(y_start)
- 
+    x.append(x_start)
+    y.append(y_start)
     return x, y
 
 def createCl(dom, x, y, Q):
