@@ -75,7 +75,7 @@ def main(cas):
         h = 2
         dom = np.loadtxt('2-dom.txt', dtype = int)
         num = np.loadtxt('2-num.txt', dtype = int)
-        x,y = borders(dom)
+        x,y = borderss(dom)
         cl = createCl(dom, 3.5)
         
         phi = Laplace(dom, num, cl)
@@ -142,7 +142,7 @@ def main(cas):
         h = 2
         dom = np.loadtxt('3-dom.txt', dtype = int)
         num = np.loadtxt('3-num.txt', dtype = int)
-        x,y = borders(dom)
+        x,y = borderss(dom)
         cl = createCl(dom, 3.5)
         
         phi = Laplace(dom, num, cl)
