@@ -11,49 +11,51 @@ import numpy as np
 
 from scipy.sparse import csc_matrix
 from scipy.sparse.linalg import spsolve
+from defineCl import createCl
+
+#dom = np.loadtxt('2-dom.txt', dtype = int)
+#num = np.loadtxt('2-num.txt', dtype = int)
+#cl = createCl(dom, 3.5)
 
 def Laplace(dom, num, cl):
-    colonne = np.array([])
-    ligne = np.array([])
-    data = np.array([])
-    cols = np.array([])
+    colPhi = np.array([])
+    rowPhi = np.array([])
+    dataPhi = np.array([])
 
-    dim = np.max(num)
-    vecteur = np.zeros(dim)
-    
-    #print(vecteur)
-
+    size = np.max(num)
+    rowVector = np.array([])
+    dataVector = np.array([])
    
     for i in range (1, dom.shape[0]-1):
         for k in range (1, dom.shape[1]-1):
 
             j,a,b = getCoeff(num[i-1, k], num[i+1, k], num[i, k-1], num[i, k+1], num[i, k], dom[i, k], cl[i, k])
-            
-            vecteur[num[i, k]-1] = b
-            
-            if dom[i,k]!=0 :
-                colonne = np.concatenate((colonne, j), axis=None)
-                data = np.concatenate((data, a), axis=None)
+
+            if(dom[i,k] != 0):
+                colPhi = np.concatenate((colPhi, j), axis=None)
+                dataPhi = np.concatenate((dataPhi, a), axis=None)   
             
             if dom[i, k] == 1:
                 for l in range (5):   #mettre 5*la valeur de la ligne
-                    ligne = np.concatenate((ligne, num[i, k]-1), axis=None)
+                    rowPhi = np.concatenate((rowPhi, num[i, k]-1), axis=None)
+            
             elif dom[i, k] == 2:    #mettre 1 fois la valeur
-                ligne = np.concatenate((ligne, num[i, k]-1), axis=None)
-
-
-    taille = 80240#(dom.shape[0]-2)*(dom.shape[1]-2) ???
+                rowPhi = np.concatenate((rowPhi, num[i, k]-1), axis=None)
+                dataVector = np.concatenate((dataVector, b), axis=None)
+                rowVector = np.concatenate((rowVector, num[i, k]-1), axis=None)
  
-    for d in range (len(colonne)):
-        colonne[d] -=1
-        
-    A = csc_matrix((data, (ligne, colonne)), shape=(taille, taille))
     
+    for d in range (len(colPhi)): #parce que indices de colonnes commencent à 0
+        colPhi[d] -= 1
+    
+    colVector = np.zeros(len(rowVector))
 
-    solution = spsolve(A, vecteur, permc_spec=None, use_umfpack=True)
+    A = csc_matrix((dataPhi, (rowPhi, colPhi)), shape=(size, size))
+    vector = csc_matrix((dataVector, (rowVector, colVector)), shape=(size, 1))
+    solution = spsolve(A, vector, permc_spec=None, use_umfpack=True)
 
-    #print("solution")    
-    #print(solution)
+    print("solution")    
+    print(solution)
     
     matriceSolution = np.zeros((num.shape[0],num.shape[1]))
     
@@ -66,3 +68,5 @@ def Laplace(dom, num, cl):
     #print(matriceSolution)
             
     return matriceSolution
+
+#print(Laplace(dom, num, cl))

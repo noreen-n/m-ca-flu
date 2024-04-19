@@ -16,7 +16,7 @@ from pressure import pressure
 from circu import circu
 from force import force
 from defineCl import createCl
-from defineCl import borders
+from defineCl import borders, borderss
 
 rho = 1000
 g = 9.81
@@ -33,6 +33,24 @@ def main(cas):
         phi = Laplace(dom, num, cl)
         u,v = velocity(phi, dom, h)
         p = pressure(rho, g, u, v, C)
+        
+        """x,y = borderss(dom)
+        
+        uArray = np.zeros(len(x))
+        vArray = np.zeros(len(x))
+        pArray = np.zeros(len(x))
+        
+        for pr in range (0, len(x)-1): # -1 ou -2 en fonction de si on doit boucler la boucle ou pas
+            pArray[pr] = p[x[pr]][y[pr]]
+            uArray[pr] = u[x[pr]][y[pr]]
+            vArray[pr] = v[x[pr]][y[pr]]
+            
+        pArray[len(x)-1] = p[x[0]][y[0]]
+        uArray[len(x)-1] = u[x[0]][y[0]]
+        vArray[len(x)-1] = v[x[0]][y[0]]
+        
+        circu(uArray, vArray, x, y)
+        force(pArray, x, y)"""
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
@@ -54,14 +72,13 @@ def main(cas):
         
         fig,ax = plt.subplots(figsize=(3, 7))
         plt.gca().invert_yaxis()
-        plt.gca().invert_yaxis()
         dimension1 = u.shape[0]
         dimension2 = u.shape[1]
         m = np.arange(0, dimension1*h, h)
         n = np.arange(0, dimension2*h, h)
         N, M = np.meshgrid(n, m)
         plt.title("Lignes de courant")
-        strm=ax.streamplot(N, M, v, u, 1)
+        strm=ax.streamplot(N, M, v, u, 0.9, broken_streamlines=False)
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
@@ -83,21 +100,18 @@ def main(cas):
         u,v = velocity(phi, dom, h)
         p = pressure(rho, g, u, v, C)
 
-        #dim = np.max(num)
-        #xx = np.zeros(dim) 
-        #yy = np.zeros(dim)
-        uArray = []
-        vArray = []
-        pArray = []
-
-        for i in range (1, num.shape[0]-1):
-            for j in range (1, num.shape[1]-1):
-                index = num[i][j]
-                #xx[index-1] = i
-                #yy[index-1] = j
-                uArray.insert(index-1, u[i][j])
-                vArray.insert(index-1, v[i][j])
-                pArray.insert(index-1, p[i][j])
+        uArray = np.zeros(len(x))
+        vArray = np.zeros(len(x))
+        pArray = np.zeros(len(x))
+        
+        for pr in range (0, len(x)-1): 
+            pArray[pr] = p[x[pr]][y[pr]]
+            uArray[pr] = u[x[pr]][y[pr]]
+            vArray[pr] = v[x[pr]][y[pr]]
+            
+        pArray[len(x)-1] = p[x[0]][y[0]]
+        uArray[len(x)-1] = u[x[0]][y[0]]
+        vArray[len(x)-1] = v[x[0]][y[0]]
         
         circu(uArray, vArray, x, y)
         force(pArray, x, y)
@@ -128,7 +142,7 @@ def main(cas):
         n = np.arange(0, dimension2*h, h)
         N, M = np.meshgrid(n, m)
         plt.title("Lignes de courant")
-        strm=ax.streamplot(N, M, v, u, 1)
+        strm=ax.streamplot(N, M, v, u, 0.8, broken_streamlines=False)
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
@@ -148,6 +162,22 @@ def main(cas):
         phi = Laplace(dom, num, cl)
         u,v = velocity(phi, dom, h)
         p = pressure(rho, g, u, v, C)
+        
+        uArray = np.zeros(len(x))
+        vArray = np.zeros(len(x))
+        pArray = np.zeros(len(x))
+        
+        for pr in range (0, len(x)-1): 
+            pArray[pr] = p[x[pr]][y[pr]]
+            uArray[pr] = u[x[pr]][y[pr]]
+            vArray[pr] = v[x[pr]][y[pr]]
+            
+        pArray[len(x)-1] = p[x[0]][y[0]]
+        uArray[len(x)-1] = u[x[0]][y[0]]
+        vArray[len(x)-1] = v[x[0]][y[0]]
+        
+        circu(uArray, vArray, x, y)
+        force(pArray, x, y)
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
@@ -175,7 +205,7 @@ def main(cas):
         n = np.arange(0, dimension2*h, h)
         N, M = np.meshgrid(n, m)
         plt.title("Lignes de courant")
-        strm=ax.streamplot(N, M, v, u, 1)
+        strm=ax.streamplot(N, M, v, u, 0.9, broken_streamlines=False)
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
@@ -198,12 +228,26 @@ def main(cas):
             x[i] = contour[i][0]
             y[i] = contour[i][1]
             
-        # prendre x et y par rapport au doc contour
         cl = createCl(dom, 3.5)
         
         phi = Laplace(dom, num, cl)
         u,v = velocity(phi, dom, h)
         p = pressure(rho, g, u, v, C)
+        
+        uArray = np.zeros(len(x))
+        vArray = np.zeros(len(x))
+        pArray = np.zeros(len(x))
+        
+        for pr in range (0, len(x)-1): 
+            pArray[pr] = p[int(x[pr])][int(y[pr])]
+            uArray[pr] = u[int(x[pr])][int(y[pr])]
+            vArray[pr] = v[int(x[pr])][int(y[pr])]
+            
+        pArray[len(x)-1] = p[int(x[0])][int(y[0])]
+        uArray[len(x)-1] = u[int(x[0])][int(y[0])]
+        vArray[len(x)-1] = v[int(x[0])][int(y[0])]
+        circu(uArray, vArray, x, y)
+        force(pArray, x, y)
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
@@ -231,7 +275,7 @@ def main(cas):
         n = np.arange(0, dimension2*h, h)
         N, M = np.meshgrid(n, m)
         plt.title("Lignes de courant")
-        strm=ax.streamplot(N, M, v, u, 1)
+        strm=ax.streamplot(N, M, v, u, 0.9, broken_streamlines=False)
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
