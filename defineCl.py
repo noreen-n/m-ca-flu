@@ -7,23 +7,9 @@ Created on Thu Apr  4 16:07:02 2024
 
 import numpy as np
 
+#dom = np.loadtxt('2-dom.txt', dtype = int)
 
-dom = np.loadtxt('2-dom.txt', dtype = int)
-
-def borders(dom) :
-    
-    x = []
-    y = []
-
-    for i in range (2, dom.shape[0]-3):
-        for k in range (2, dom.shape[1]-3):
-            if(dom[i][k] == 2):
-                x.append(i)
-                y.append(k)
-    
-    return x, y
-
-def borderss(dom):
+def borders(dom):
     
     x = []
     y = []
@@ -71,7 +57,7 @@ def borderss(dom):
 
 def createCl(dom, Q):
     
-    x,y = borderss(dom)
+    x,y = borders(dom)
     cl = np.zeros((dom.shape[0], dom.shape[1]))
     
     for i in range(len(x)):
@@ -96,7 +82,7 @@ def createCl(dom, Q):
         
     return cl
 
-"""def createCl4(dom, Q, x, y):
+def createCl4(dom, Q, x, y):
     
     cl = np.zeros((dom.shape[0], dom.shape[1]))
     
@@ -120,12 +106,15 @@ def createCl(dom, Q):
     cl[:][1] = clSide[:]
     cl[dom.shape[0]-2][:] = clSide[:]
 
-    max = int(np.max(y))
+    hauteurIlot = np.min(y) + (np.max(y)-np.min(y))/2
+    h = int(hauteurIlot)
+    longueurIlot = np.max(x) - np.min(x)
+    l = int(longueurIlot)
     
-    for i in range (len(x)):
-        if(y[i] == max):
+    for i in range(len(x)):
+        cl[x[i]][y[i]] = Q*h*np.abs(y[i]-h)/l
         
-    return cl"""
+    return cl
             
 
 #cl = createCl(dom, 3.5)

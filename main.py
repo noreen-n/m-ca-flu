@@ -15,8 +15,7 @@ from velocity import velocity
 from pressure import pressure
 from circu import circu
 from force import force
-from defineCl import createCl
-from defineCl import borders, borderss
+from defineCl import createCl, createCl4, borders
 
 rho = 1000
 g = 9.81
@@ -92,7 +91,7 @@ def main(cas):
         h = 2
         dom = np.loadtxt('2-dom.txt', dtype = int)
         num = np.loadtxt('2-num.txt', dtype = int)
-        x,y = borderss(dom)
+        x,y = borders(dom)
         cl = createCl(dom, 3.5)
         
         phi = Laplace(dom, num, cl)
@@ -156,7 +155,7 @@ def main(cas):
         h = 2
         dom = np.loadtxt('3-dom.txt', dtype = int)
         num = np.loadtxt('3-num.txt', dtype = int)
-        x,y = borderss(dom)
+        x,y = borders(dom)
         cl = createCl(dom, 3.5)
         
         phi = Laplace(dom, num, cl)
@@ -221,14 +220,14 @@ def main(cas):
         num = np.loadtxt('4-num.txt', dtype = int)
         contour = np.loadtxt('4-contourObj.txt', dtype = int)
         
-        x = np.zeros(contour.shape[0])
-        y = np.zeros(contour.shape[0])
+        x = np.zeros(contour.shape[0], dtype = int)
+        y = np.zeros(contour.shape[0], dtype = int)
         
         for i in range (contour.shape[0]):
             x[i] = contour[i][0]
             y[i] = contour[i][1]
             
-        cl = createCl(dom, 3.5)
+        cl = createCl4(dom, 3.5, x, y)
         
         phi = Laplace(dom, num, cl)
         u,v = velocity(phi, dom, h)
