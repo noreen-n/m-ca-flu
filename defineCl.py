@@ -82,14 +82,9 @@ def createCl(dom, Q):
         
     return cl
 
-def createCl4(dom, Q, x, y):
+def createCl4(dom, Q, x, y, h):
     
     cl = np.zeros((dom.shape[0], dom.shape[1]))
-    
-    for i in range(len(x)):
-        for k in range(len(y)):
-            if(dom[int(x[i])][int(y[k])] == 2):
-                cl[int(x[i])][int(y[k])] = Q/2
             
     for i in range (2, dom.shape[0]-2):
         cl[i][dom.shape[1]-2]= Q
@@ -106,13 +101,13 @@ def createCl4(dom, Q, x, y):
     cl[:][1] = clSide[:]
     cl[dom.shape[0]-2][:] = clSide[:]
 
-    hauteurIlot = np.min(y) + (np.max(y)-np.min(y))/2
-    h = int(hauteurIlot)
-    longueurIlot = np.max(x) - np.min(x)
-    l = int(longueurIlot)
+    longueurCanal = h*(dom.shape[1]-3)
+    hauteurIlot = h*(np.min(y) + (np.max(y)-np.min(y))/2 - 1)
+    yIlot = int(hauteurIlot)
+    
     
     for i in range(len(x)):
-        cl[x[i]][y[i]] = Q*h*np.abs(y[i]-h)/l
+        cl[x[i]][y[i]] = Q*yIlot/longueurCanal
         
     return cl
             

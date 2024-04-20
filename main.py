@@ -33,24 +33,6 @@ def main(cas):
         u,v = velocity(phi, dom, h)
         p = pressure(rho, g, u, v, C)
         
-        """x,y = borderss(dom)
-        
-        uArray = np.zeros(len(x))
-        vArray = np.zeros(len(x))
-        pArray = np.zeros(len(x))
-        
-        for pr in range (0, len(x)-1): # -1 ou -2 en fonction de si on doit boucler la boucle ou pas
-            pArray[pr] = p[x[pr]][y[pr]]
-            uArray[pr] = u[x[pr]][y[pr]]
-            vArray[pr] = v[x[pr]][y[pr]]
-            
-        pArray[len(x)-1] = p[x[0]][y[0]]
-        uArray[len(x)-1] = u[x[0]][y[0]]
-        vArray[len(x)-1] = v[x[0]][y[0]]
-        
-        circu(uArray, vArray, x, y)
-        force(pArray, x, y)"""
-        
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
         p1 = ax.imshow(phi, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
@@ -227,7 +209,7 @@ def main(cas):
             x[i] = contour[i][0]
             y[i] = contour[i][1]
             
-        cl = createCl4(dom, 3.5, x, y)
+        cl = createCl4(dom, 3.5, x, y, h)
         
         phi = Laplace(dom, num, cl)
         u,v = velocity(phi, dom, h)
@@ -274,7 +256,7 @@ def main(cas):
         n = np.arange(0, dimension2*h, h)
         N, M = np.meshgrid(n, m)
         plt.title("Lignes de courant")
-        strm=ax.streamplot(N, M, v, u, 0.9, broken_streamlines=False)
+        strm=ax.streamplot(N, M, v, u, 0.65, broken_streamlines=False)
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
