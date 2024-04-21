@@ -54,8 +54,8 @@ def Laplace(dom, num, cl):
     vector = csc_matrix((dataVector, (rowVector, colVector)), shape=(size, 1))
     solution = spsolve(A, vector, permc_spec=None, use_umfpack=True)
 
-    print("solution")    
-    print(solution)
+    #print("solution")    
+    #print(solution)
     
     matriceSolution = np.zeros((num.shape[0],num.shape[1]))
     

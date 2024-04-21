@@ -7,6 +7,7 @@ Created on Thu Mar 21 15:43:52 2024
 """
 
 import numpy as np
+import math
 
 import matplotlib.pyplot as plt
 
@@ -32,6 +33,24 @@ def main(cas):
         phi = Laplace(dom, num, cl)
         u,v = velocity(phi, dom, h)
         p = pressure(rho, g, u, v, C)
+        
+        """x,y = borderss(dom)
+        
+        uArray = np.zeros(len(x))
+        vArray = np.zeros(len(x))
+        pArray = np.zeros(len(x))
+        
+        for pr in range (0, len(x)-1): 
+            pArray[pr] = p[x[pr]][y[pr]]
+            uArray[pr] = u[x[pr]][y[pr]]
+            vArray[pr] = v[x[pr]][y[pr]]
+            
+        pArray[len(x)-1] = p[x[0]][y[0]]
+        uArray[len(x)-1] = u[x[0]][y[0]]
+        vArray[len(x)-1] = v[x[0]][y[0]]
+        
+        circu(uArray, vArray, x, y)
+        force(pArray, x, y)"""
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
@@ -100,7 +119,8 @@ def main(cas):
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
         p1 = ax.imshow(phi, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
-        plt.colorbar(p1)
+        bar = plt.colorbar(p1)
+        bar.set_label('[m^3/s]')
         plt.title("Fonction de courant")
         
         fig,ax = plt.subplots()
@@ -114,6 +134,17 @@ def main(cas):
         p1 = ax.imshow(v, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
         plt.colorbar(p1)
         plt.title("Vitesse v")
+
+        U= np.zeros((u.shape[0], u.shape[1]))
+        for k in range(u.shape[0]):
+            for l in range(u.shape[1]):
+                U[k][l] = np.sqrt(u[k][l]**2+ v[k][l]**2)
+        fig,ax = plt.subplots()
+        plt.gca().invert_yaxis()
+        p1 = ax.imshow(U, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
+        bar = plt.colorbar(p1)
+        bar.set_label('[m/s]')
+        plt.title("Vitesse")
     
         fig,ax = plt.subplots(figsize=(3, 7))
         plt.gca().invert_yaxis()
@@ -128,7 +159,8 @@ def main(cas):
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
         p1 = ax.imshow(p, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
-        plt.colorbar(p1)
+        bar = plt.colorbar(p1)
+        bar.set_label('[Pa]')
         plt.title("Pression")
         
         
@@ -178,6 +210,17 @@ def main(cas):
         plt.colorbar(p1)
         plt.title("Vitesse v")
         
+        U= np.zeros((u.shape[0], u.shape[1]))
+        for k in range(u.shape[0]):
+            for l in range(u.shape[1]):
+                U[k][l] = np.sqrt(u[k][l]**2+ v[k][l]**2)
+        fig,ax = plt.subplots()
+        plt.gca().invert_yaxis()
+        p1 = ax.imshow(U, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
+        bar = plt.colorbar(p1)
+        bar.set_label('[m/s]')
+        plt.title("Vitesse")
+        
         fig,ax = plt.subplots(figsize=(3, 7))
         plt.gca().invert_yaxis()
         dimension1 = u.shape[0]
@@ -191,7 +234,8 @@ def main(cas):
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
         p1 = ax.imshow(p, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
-        plt.colorbar(p1)
+        bar = plt.colorbar(p1)
+        bar.set_label('[Pa]')
         plt.title("Pression")
         
         
@@ -248,6 +292,17 @@ def main(cas):
         plt.colorbar(p1)
         plt.title("Vitesse v")
         
+        U= np.zeros((u.shape[0], u.shape[1]))
+        for k in range(u.shape[0]):
+            for l in range(u.shape[1]):
+                U[k][l] = np.sqrt(u[k][l]**2+ v[k][l]**2)
+        fig,ax = plt.subplots()
+        plt.gca().invert_yaxis()
+        p1 = ax.imshow(U, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
+        bar = plt.colorbar(p1)
+        bar.set_label('[m/s]')
+        plt.title("Vitesse")
+        
         fig,ax = plt.subplots(figsize=(3, 7))
         plt.gca().invert_yaxis()
         dimension1 = u.shape[0]
@@ -256,12 +311,13 @@ def main(cas):
         n = np.arange(0, dimension2*h, h)
         N, M = np.meshgrid(n, m)
         plt.title("Lignes de courant")
-        strm=ax.streamplot(N, M, v, u, 0.65, broken_streamlines=False)
+        strm=ax.streamplot(N, M, v, u, 0.9, broken_streamlines=False)
         
         fig,ax = plt.subplots()
         plt.gca().invert_yaxis()
         p1 = ax.imshow(p, extent=(0, np.shape(cl)[1]*h, np.shape(dom)[0]*h, 0), cmap='inferno')
-        plt.colorbar(p1)
+        bar = plt.colorbar(p1)
+        bar.set_label('[Pa]')
         plt.title("Pression")
         
 main(4)
