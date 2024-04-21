@@ -7,8 +7,6 @@ Created on Thu Apr  4 16:07:02 2024
 
 import numpy as np
 
-#dom = np.loadtxt('2-dom.txt', dtype = int)
-
 def borders(dom):
     
     x = []
@@ -111,6 +109,4 @@ def createCl4(dom, Q, x, y, h):
         
     return cl
             
-
-#cl = createCl(dom, 3.5)
     

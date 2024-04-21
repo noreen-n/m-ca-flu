@@ -11,11 +11,7 @@ import numpy as np
 
 from scipy.sparse import csc_matrix
 from scipy.sparse.linalg import spsolve
-from defineCl import createCl
 
-#dom = np.loadtxt('2-dom.txt', dtype = int)
-#num = np.loadtxt('2-num.txt', dtype = int)
-#cl = createCl(dom, 3.5)
 
 def Laplace(dom, num, cl):
     colPhi = np.array([])
@@ -45,7 +41,7 @@ def Laplace(dom, num, cl):
                 rowVector = np.concatenate((rowVector, num[i, k]-1), axis=None)
  
     
-    for d in range (len(colPhi)): #parce que indices de colonnes commencent à 0
+    for d in range (len(colPhi)): 
         colPhi[d] -= 1
     
     colVector = np.zeros(len(rowVector))
@@ -54,8 +50,6 @@ def Laplace(dom, num, cl):
     vector = csc_matrix((dataVector, (rowVector, colVector)), shape=(size, 1))
     solution = spsolve(A, vector, permc_spec=None, use_umfpack=True)
 
-    #print("solution")    
-    #print(solution)
     
     matriceSolution = np.zeros((num.shape[0],num.shape[1]))
     
@@ -63,10 +57,6 @@ def Laplace(dom, num, cl):
         for j in range (1, num.shape[1]-1):
             index = num[i][j]
             matriceSolution[i][j] = solution[index-1]  
-            
-    #print("matrice solution")
-    #print(matriceSolution)
+
             
     return matriceSolution
-
-#print(Laplace(dom, num, cl))
